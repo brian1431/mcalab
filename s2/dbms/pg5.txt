@@ -1,0 +1,186 @@
+ create database emp;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> use emp;
+Database changed
+
+mysql> create table employee(employee_id int, name varchar(20),gender varchar(20),department varchar(20),education varchar(20),month_join varchar(20),salary int
+);
+Query OK, 0 rows affected (0.27 sec)
+
+
+mysql> insert into employee values(1001,'ajay','M','engneering','doctorl','janur',25);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(1002,'babloo','M','engneering','ug','janur',23);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values(1002,'chavi','f','hr','pg','march',15);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee;
++-------------+--------+--------+------------+-----------+------------+--------+
+| employee_id | name   | gender | department | education | month_join | salary |
++-------------+--------+--------+------------+-----------+------------+--------+
+|        1001 | ajay   | M      | engneering | doctorl   | janur      |     25 |
+|        1002 | babloo | M      | engneering | ug        | janur      |     23 |
+|        1002 | chavi  | f      | hr         | pg        | march      |     15 |
++-------------+--------+--------+------------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update employee set employee_id=1003 where name="chavi";
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------------+--------+--------+------------+-----------+------------+--------+
+| employee_id | name   | gender | department | education | month_join | salary |
++-------------+--------+--------+------------+-----------+------------+--------+
+|        1001 | ajay   | M      | engneering | doctorl   | janur      |     25 |
+|        1002 | babloo | M      | engneering | ug        | janur      |     23 |
+|        1003 | chavi  | f      | hr         | pg        | march      |     15 |
++-------------+--------+--------+------------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee values(1004,'veedi','m','hr','ug','january',12);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values(1005,'evina','f','marketing','ug','march',16);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values(1006,'freddy','m','sales','ug','december',10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(1007,'giri','m','sales','pg','march',10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from employee;
++-------------+--------+--------+------------+-----------+------------+--------+
+| employee_id | name   | gender | department | education | month_join | salary |
++-------------+--------+--------+------------+-----------+------------+--------+
+|        1001 | ajay   | M      | engneering | doctorl   | janur      |     25 |
+|        1002 | babloo | M      | engneering | ug        | janur      |     23 |
+|        1003 | chavi  | f      | hr         | pg        | march      |     15 |
+|        1004 | veedi  | m      | hr         | ug        | january    |     12 |
+|        1005 | evina  | f      | marketing  | ug        | march      |     16 |
+|        1006 | freddy | m      | sales      | ug        | december   |     10 |
+|        1007 | giri   | m      | sales      | pg        | march      |     10 |
++-------------+--------+--------+------------+-----------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> mysql> department,SUM(salary)FROM employee GROUP BY department;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| engneering |          48 |
+| hr         |          27 |
+| marketing  |          16 |
+| sales      |          20 |
++------------+-------------+
+4 rows in set (0.02 sec)
+
+mysql> mysql> SELECT department,SUM(salary)FROM employe BY department HAVING SUM(salary)>=20;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| engneering |          48 |
+| hr         |          27 |
+| sales      |          20 |
++------------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT DISTINCT department FROM employee;
++------------+
+| department |
++------------+
+| engneering |
+| hr         |
+| marketing  |
+| sales      |
++------------+
+4 rows in set (0.00 sec)
+
+
+mysql> SELECT COUNT(salary) FROM employee;
++---------------+
+| COUNT(salary) |
++---------------+
+|             7 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++-------------+--------+--------+------------+-----------+------------+--------+
+| employee_id | name   | gender | department | education | month_join | salary |
++-------------+--------+--------+------------+-----------+------------+--------+
+|        1001 | ajay   | M      | engneering | doctorl   | janur      |     25 |
+|        1002 | babloo | M      | engneering | ug        | janur      |     23 |
+|        1003 | chavi  | f      | hr         | pg        | march      |     15 |
+|        1004 | veedi  | m      | hr         | ug        | january    |     12 |
+|        1005 | evina  | f      | marketing  | ug        | march      |     16 |
+|        1006 | freddy | m      | sales      | ug        | december   |     10 |
+|        1007 | giri   | m      | sales      | pg        | march      |     10 |
++-------------+--------+--------+------------+-----------+------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee where department='engneering'and education='doctorl';
++-------------+------+--------+------------+-----------+------------+--------+
+| employee_id | name | gender | department | education | month_join | salary |
++-------------+------+--------+------------+-----------+------------+--------+
+|        1001 | ajay | M      | engneering | doctorl   | janur      |     25 |
++-------------+------+--------+------------+-----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where department='engneering' or education='doctorl';
++-------------+--------+--------+------------+-----------+------------+--------+
+| employee_id | name   | gender | department | education | month_join | salary |
++-------------+--------+--------+------------+-----------+------------+--------+
+|        1001 | ajay   | M      | engneering | doctorl   | janur      |     25 |
+|        1002 | babloo | M      | engneering | ug        | janur      |     23 |
++-------------+--------+--------+------------+-----------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name as first_name,education as qualification from employee;
++------------+---------------+
+| first_name | qualification |
++------------+---------------+
+| ajay       | doctorl       |
+| babloo     | ug            |
+| chavi      | pg            |
+| veedi      | ug            |
+| evina      | ug            |
+| freddy     | ug            |
+| giri       | pg            |
++------------+---------------+
+7 rows in set (0.00 sec)
+
+
+mysql> SELECT * from employee where name like 'A%';
++-------------+------+--------+------------+-----------+------------+--------+
+| employee_id | name | gender | department | education | month_join | salary |
++-------------+------+--------+------------+-----------+------------+--------+
+|        1001 | ajay | M      | engneering | doctorl   | janur      |     25 |
++-------------+------+--------+------------+-----------+------------+--------+
+1 row in set (0.00 sec)
+
+
+Database changed
+mysql> SELECT department,SUM(salary) FROM employee WHERE education <> 'ug' GROUP BY department HAVING SUM(salary)>=20;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| engneering |          25 |
++------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT department,SUM(salary) FROM employee GROUP BY department HAVING SUM(salary)>=15 ORDER BY SUM(salary)DESC;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| engneering |          48 |
+| hr         |          27 |
+| sales      |          20 |
+| marketing  |          16 |
++------------+-------------+
+4 rows in set (0.00 sec)
+

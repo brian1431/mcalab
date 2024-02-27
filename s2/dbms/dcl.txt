@@ -1,0 +1,206 @@
+lab2@lab2-OptiPlex-380:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ^C
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| MCA                |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.11 sec)
+
+mysql> create database employee;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use employee;
+Database changed
+mysql> create table employee;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> create table employee(emp_id INTEGER PRIMARY KEY,Emp Name TEXT NOT NULL,Emp_Add TEXT NOT NULL,Emp_phone TEXT NOT NULL,Dept_id TEXT NOT NULL,Dept_use employee;
+Database changed
+mysql> CREATE table employee(emp_id INTEGER PRIMARY KEY,Emp_Name TEXT NOT NULL,Emp_Add TEXT NOT NULL,Emp_phone TEXT NOT NULL,Dept_id TEXT NOT NULL,Dept_Name TEXT NOT NULL,Salary TEXT NOT NULL);_
+Query OK, 0 rows affected (0.30 sec)
+
+    -> desc employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_
+desc employee' at line 1
+mysql> desc employee;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| emp_id    | int(11) | NO   | PRI | NULL    |       |
+| Emp_Name  | text    | NO   |     | NULL    |       |
+| Emp_Add   | text    | NO   |     | NULL    |       |
+| Emp_phone | text    | NO   |     | NULL    |       |
+| Dept_id   | text    | NO   |     | NULL    |       |
+| Dept_Name | text    | NO   |     | NULL    |       |
+| Salary    | text    | NO   |     | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> INSERT INTO employee values(1,'RAMESH','GNODIA','9999995555','0011','SALES','34000');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO employee values(1,'SURASH','GNODIA','444444466666','0072','SALES','75000');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> INSERT INTO employee values(2,'SURASH','GNODIA','444444466666','0072','SALES','75000');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO employee values(3,'RAJESH','GNODIA','22222233333','0082','SALES','28000');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO employee values(4,'SHANU','GNODIA','11111999999','0083','SALES','35000');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO employee values(5,'RAMU','BSH','11111999999','0084','SALES','96000');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> UPDATE employee set Emp_Add='BSB' where emp_id=4;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE employee set Emp_Add='BSB' where emp_id=5;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++--------+----------+---------+--------------+---------+-----------+--------+
+| emp_id | Emp_Name | Emp_Add | Emp_phone    | Dept_id | Dept_Name | Salary |
++--------+----------+---------+--------------+---------+-----------+--------+
+|      1 | RAMESH   | GNODIA  | 9999995555   | 0011    | SALES     | 34000  |
+|      2 | SURASH   | GNODIA  | 444444466666 | 0072    | SALES     | 75000  |
+|      3 | RAJESH   | GNODIA  | 22222233333  | 0082    | SALES     | 28000  |
+|      4 | SHANU    | BSB     | 11111999999  | 0083    | SALES     | 35000  |
+|      5 | RAMU     | BSB     | 11111999999  | 0084    | SALES     | 96000  |
++--------+----------+---------+--------------+---------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create user 'hello' identified by'a22';
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show grands for hello;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'grands for hello' at line 1
+mysql> show grants for hello;
++-----------------------------------+
+| Grants for hello@%                |
++-----------------------------------+
+| GRANT USAGE ON *.* TO 'hello'@'%' |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant all on employee from hello;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from hello' at line 1
+mysql> grant all on employee to hello;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> quit;
+Bye
+lab2@lab2-OptiPlex-380:~$ mysql -u hello -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select*from employee;
++--------+----------+---------+--------------+---------+-----------+--------+
+| emp_id | Emp_Name | Emp_Add | Emp_phone    | Dept_id | Dept_Name | Salary |
++--------+----------+---------+--------------+---------+-----------+--------+
+|      1 | RAMESH   | GNODIA  | 9999995555   | 0011    | SALES     | 34000  |
+|      2 | SURASH   | GNODIA  | 444444466666 | 0072    | SALES     | 75000  |
+|      3 | RAJESH   | GNODIA  | 22222233333  | 0082    | SALES     | 28000  |
+|      4 | SHANU    | BSB     | 11111999999  | 0083    | SALES     | 35000  |
+|      5 | RAMU     | BSB     | 11111999999  | 0084    | SALES     | 96000  |
++--------+----------+---------+--------------+---------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE employee set Emp_Name='ali' where emp_id=5;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from employee;
++--------+----------+---------+--------------+---------+-----------+--------+
+| emp_id | Emp_Name | Emp_Add | Emp_phone    | Dept_id | Dept_Name | Salary |
++--------+----------+---------+--------------+---------+-----------+--------+
+|      1 | RAMESH   | GNODIA  | 9999995555   | 0011    | SALES     | 34000  |
+|      2 | SURASH   | GNODIA  | 444444466666 | 0072    | SALES     | 75000  |
+|      3 | RAJESH   | GNODIA  | 22222233333  | 0082    | SALES     | 28000  |
+|      4 | SHANU    | BSB     | 11111999999  | 0083    | SALES     | 35000  |
+|      5 | ali      | BSB     | 11111999999  | 0084    | SALES     | 96000  |
++--------+----------+---------+--------------+---------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> quit;
+Bye
+lab2@lab2-OptiPlex-380:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> revoke all on employee from hello;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit;
+Bye
+lab2@lab2-OptiPlex-380:~$ mysql -u hello -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.7.33-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select*from employee;
+ERROR 1046 (3D000): No database selected
+mysql> use employee;
+ERROR 1044 (42000): Access denied for user 'hello'@'%' to database 'employee'
+

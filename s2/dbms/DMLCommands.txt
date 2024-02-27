@@ -1,0 +1,180 @@
+mysql> create table employee(EmpId int primary key,Name varchar(20),Department varchar(20),Salary int);
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> create table department(DeptId int primary key,DeptName varchar(20),HeadOfDepartment varchar(20));
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmpId      | int(11)     | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| Department | varchar(20) | YES  |     | NULL    |       |
+| Salary     | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc department;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| DeptId           | int(11)     | NO   | PRI | NULL    |       |
+| DeptName         | varchar(20) | YES  |     | NULL    |       |
+| HeadOfDepartment | varchar(20) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee values(101,'Arjun','HR',25000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values(102,'Arun','HR',20000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee values(103,'Anil','Worker',12000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values(104,'Amal','Worker',15000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee;
++-------+-------+------------+--------+
+| EmpId | Name  | Department | Salary |
++-------+-------+------------+--------+
+|   101 | Arjun | HR         |  25000 |
+|   102 | Arun  | HR         |  20000 |
+|   103 | Anil  | Worker     |  12000 |
+|   104 | Amal  | Worker     |  15000 |
++-------+-------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into department values(201,'HR','Guts');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into department values(202,'Worker','Naruto');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into department values(203,'Head','Kakashi');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into department values(204,'Head of Operation','Madara'); 
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from department;
++--------+-------------------+------------------+
+| DeptId | DeptName          | HeadOfDepartment |
++--------+-------------------+------------------+
+|    201 | HR                | Guts             |
+|    202 | Worker            | Naruto           |
+|    203 | Head              | Kakashi          |
+|    204 | Head of Operation | Madara           |
++--------+-------------------+------------------+
+4 rows in set (0.00 sec)
+
+
+mysql> alter table employee add DeptId int;
+Query OK, 0 rows affected (0.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmpId      | int(11)     | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| Department | varchar(20) | YES  |     | NULL    |       |
+| Salary     | int(11)     | YES  |     | NULL    |       |
+| DeptId     | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update employee set DeptId=201 where EmpId=101;
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set DeptId=202 where EmpId=102;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set DeptId=203 where EmpId=103;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set DeptId=204 where EmpId=104;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+-------+------------+--------+--------+
+| EmpId | Name  | Department | Salary | DeptId |
++-------+-------+------------+--------+--------+
+|   101 | Arjun | HR         |  25000 |    201 |
+|   102 | Arun  | HR         |  20000 |    202 |
+|   103 | Anil  | Worker     |  12000 |    203 |
+|   104 | Amal  | Worker     |  15000 |    204 |
++-------+-------+------------+--------+--------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from employee;
++-------+-------+------------+--------+--------+
+| EmpId | Name  | Department | Salary | DeptId |
++-------+-------+------------+--------+--------+
+|   101 | Arjun | HR         |  25000 |    201 |
+|   102 | Arun  | HR         |  20000 |    202 |
+|   103 | Anil  | Worker     |  12000 |    203 |
+|   104 | Amal  | Worker     |  15000 |    204 |
++-------+-------+------------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from department;
++--------+-------------------+------------------+
+| DeptId | DeptName          | HeadOfDepartment |
++--------+-------------------+------------------+
+|    201 | HR                | Guts             |
+|    202 | Worker            | Naruto           |
+|    203 | Head              | Kakashi          |
+|    204 | Head of Operation | Madara           |
++--------+-------------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee add primary key(EmpId);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmpId      | int(11)     | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| Department | varchar(20) | YES  |     | NULL    |       |
+| Salary     | int(11)     | YES  |     | NULL    |       |
+| DeptId     | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc department;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| DeptId           | int(11)     | NO   | PRI | NULL    |       |
+| DeptName         | varchar(20) | YES  |     | NULL    |       |
+| HeadOfDepartment | varchar(20) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee add foreign key(DeptId) references department(DeptId);
+Query OK, 4 rows affected (0.85 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmpId      | int(11)     | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| Department | varchar(20) | YES  |     | NULL    |       |
+| Salary     | int(11)     | YES  |     | NULL    |       |
+| DeptId     | int(11)     | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
