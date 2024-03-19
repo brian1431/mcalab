@@ -1,0 +1,271 @@
+
+mysql> use wolf;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+create table sailor(s_id int(primary key),s_name v' at line 1
+mysql> create table sailor(s_id int primary key,s_name varchar(20),rating int,age int);
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| s_id   | int(11)     | NO   | PRI | NULL    |       |
+| s_name | varchar(20) | YES  |     | NULL    |       |
+| rating | int(11)     | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> insert into sailor values(22,'akhil',7,45);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into sailor values(23,'akhila',4,22);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into sailor values(24,'alia',5,26);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into sailor values(25,'ali',7,26);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into sailor values(26,'salim',2,27);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from sailor;
++------+--------+--------+------+
+| s_id | s_name | rating | age  |
++------+--------+--------+------+
+|   22 | akhil  |      7 |   45 |
+|   23 | akhila |      4 |   22 |
+|   24 | alia   |      5 |   26 |
+|   25 | ali    |      7 |   26 |
+|   26 | salim  |      2 |   27 |
++------+--------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> create table boats(b_id int primary key,b_name varchar(20),color varchar(20));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> insert into boats values(101,'deathstrike','blue');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into boats values(102,'deathstrike','black');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into boats values(103,'strike','green');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into boats values(104,'striker','red');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from boats;
++------+-------------+-------+
+| b_id | b_name      | color |
++------+-------------+-------+
+|  101 | deathstrike | blue  |
+|  102 | deathstrike | black |
+|  103 | strike      | green |
+|  104 | striker     | red   |
++------+-------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into boats values(105,'Battleship-43','white');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from boats;
++------+---------------+-------+
+| b_id | b_name        | color |
++------+---------------+-------+
+|  101 | deathstrike   | blue  |
+|  102 | deathstrike   | black |
+|  103 | strike        | green |
+|  104 | striker       | red   |
+|  105 | Battleship-43 | white |
++------+---------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from sailor;
++------+--------+--------+------+
+| s_id | s_name | rating | age  |
++------+--------+--------+------+
+|   22 | akhil  |      7 |   45 |
+|   23 | akhila |      4 |   22 |
+|   24 | alia   |      5 |   26 |
+|   25 | ali    |      7 |   26 |
+|   26 | salim  |      2 |   27 |
++------+--------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> create table reserves(s_id int,b_id int,day date);
+Query OK, 0 rows affected (0.30 sec)
+
+
+mysql> insert into reserves values(22,102,'1998-10-10'),(22,101,'1998-10-10');
+Query OK, 2 rows affected (0.07 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into reserves values(23,102,'1998-08-21'),(24,105,'1998-05-10');;
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into reserves values(26,104,'1998-12-11'),(25,103,'1998-11-10');
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from reserves;
++------+------+------------+
+| s_id | b_id | day        |
++------+------+------------+
+|   22 |  102 | 1998-10-10 |
+|   22 |  101 | 1998-10-10 |
+|   23 |  102 | 1998-08-21 |
+|   24 |  105 | 1998-05-10 |
+|   26 |  104 | 1998-12-11 |
+|   25 |  103 | 1998-11-10 |
++------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table add foreign key(s_id) references sailor(s_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add foreign key(s_id) references sailor(s_id)' at line 1
+mysql> alter table reserves add foreign key(s_id) references sailor(s_i
+d);
+Query OK, 6 rows affected (0.62 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc reserves;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| s_id  | int(11) | YES  | MUL | NULL    |       |
+| b_id  | int(11) | YES  |     | NULL    |       |
+| day   | date    | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table reserves add foreign key(b_id) references boats(b_id);
+Query OK, 6 rows affected (0.75 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc reserves;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| s_id  | int(11) | YES  | MUL | NULL    |       |
+| b_id  | int(11) | YES  | MUL | NULL    |       |
+| day   | date    | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+7.
+(i)
+
+
+mysql> select count(distinct color) from boats;
++-----------------------+
+| count(distinct color) |
++-----------------------+
+|                     5 |
++-----------------------+
+1 row in set (0.02 sec)
+
+
+(ii).
+
+
+mysql> select * from sailor where s_id in(select s_id from reserves where b_id=101);
++------+--------+--------+------+
+| s_id | s_name | rating | age  |
++------+--------+--------+------+
+|   22 | akhil  |      7 |   45 |
++------+--------+--------+------+
+1 row in set (0.00 sec)
+
+
+(iii).
+
+mysql> select s_name from sailor S,reserves R where S.s_id=R.s_id;
++--------+
+| s_name |
++--------+
+| akhil  |
+| akhil  |
+| akhila |
+| alia   |
+| ali    |
+| salim  |
++--------+
+6 rows in set (0.00 sec)
+
+
+(iv).
+
+
+mysql> select s_name,age from sailor where s_id in(select s_id from reserves,boats where reserves.b_id=boats.b_id and color='red') order by age;
++--------+------+
+| s_name | age  |
++--------+------+
+| salim  |   27 |
++--------+------+
+1 row in set (0.36 sec)
+
+
+(v).
+
+
+mysql> select b.b_name,s.s_name from boats b inner join reserves r on b.b_id=r.b_id inner join sailor s on s.s_id=r.s_id;
++---------------+--------+
+| b_name        | s_name |
++---------------+--------+
+| deathstrike   | akhil  |
+| deathstrike   | akhil  |
+| deathstrike   | akhila |
+| Battleship-43 | alia   |
+| striker       | salim  |
+| strike        | ali    |
++---------------+--------+
+6 rows in set (0.03 sec)
+
+
+
+
+(vi).
+
+
+mysql> select distinct S.s_id,S.s_name from sailor S,reserves R1,reserves R2 where S.s_id=R1.s_id and S.s_id=R2.s_id and R1.day and R1.b_id <>R2.b_id;
++------+--------+
+| s_id | s_name |
++------+--------+
+|   22 | akhil  |
++------+--------+
+1 row in set (0.06 sec)
+
+(vii).
+
+
+
+mysql> select R.s_id from boats B,reserves R where R.b_id=B.b_id and B.color ='red' union select R2.s_id from boats B2,reserves R2 where R2.b_id=B2.b_id and B2.b_id and B2.color='green';
++------+
+| s_id |
++------+
+|   26 |
+|   25 |
++------+
+2 rows in set (0.08 sec)
+
+(viii).
+
+
+mysql> select S.s_name from sailor S where not exists (select B.b_id from boats B where not exists (select R.b_id from reserves R where R.b_id=B.b_id and R.s_id =S.s_id));
++--------+
+| s_name |
++--------+
+| akhil  |
++--------+
+1 row in set (0.00 sec)
+
+mysql>
